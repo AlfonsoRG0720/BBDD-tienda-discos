@@ -1,0 +1,31 @@
+{
+  "name": "bbdd-tienda-discos",
+  "version": "1.0.0",
+  "description": "Base de datos de una tienda de discos de música",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlfonsoRG0720/BBDD-tienda-discos.git"
+  },
+  "author": "Alfonso Rodriguez Gallego",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlfonsoRG0720/BBDD-tienda-discos/issues"
+  },
+  "homepage": "https://github.com/AlfonsoRG0720/BBDD-tienda-discos#readme",
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "mongoose": "^8.17.0",
+    "morgan": "^1.10.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
