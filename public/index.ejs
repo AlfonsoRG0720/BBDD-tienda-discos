@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title><%= titulo %></title>
+  <link rel="stylesheet" href="/estilos.css"> <!-- ejemplo de archivo estático -->
+</head>
+<body>
+    
+    <h1>TIENDA DE DISCOS</h1>
+
+    <ul>
+        <li><a href="/inicioSesion.ejs">Iniciar sesión</a></li>
+        <li><a href="/panelControl.ejs">Panel de control</a></li>
+        <li><a href="/cerrarSesion.ejs">Cerrar sesión</a></li>
+    </ul>
+    <h2>Bienvenido, <%= nombre %>!</h2>
+
+    <p>Este es un ejemplo de una página usando <strong>EJS</strong>.</p>
+
+    <% if (rol === "administrador") { %>
+        <p>Acceso total al sistema.</p>
+    <% } else { %>
+        <p>Acceso limitado.</p>
+    <% } %>
+
+  <ul>
+    <% productos.forEach(producto => { %>
+      <li><%= producto.nombre %> - $<%= producto.precio %></li>
+    <% }) %>
+  </ul>
+</body>
+</html>

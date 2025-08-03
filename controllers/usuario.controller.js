@@ -26,12 +26,13 @@ enrutadorUsuarios.get("/:identificacion", async (req, res) => {
 
 enrutadorUsuarios.post("/", async (req, res) => {
     try {
-        const { nombre, email, contrasenia } = req.body;
+        const { nombre, email, contrasenia, rol } = req.body;
 
         const usuarioNuevo = new UsuarioModel({
             nombre: nombre,
             email: email,
-            contrasenia: contrasenia
+            contrasenia: contrasenia,
+            rol: rol
         })
 
         const resultado = await usuarioNuevo.save()
@@ -66,7 +67,7 @@ enrutadorUsuarios.put("/:identificador", async (req, res) => {
     try {
         console.log(req.params.identificador)
 
-        const { nombre, email, contrasenia } = req.body;
+        const { nombre, email, contrasenia, rol } = req.body;
 
         const productoEncontrado = await UsuarioModel.findById(req.params.identificador);
 
@@ -79,7 +80,8 @@ enrutadorUsuarios.put("/:identificador", async (req, res) => {
             {
                 nombre: nombre,
                 email: email,
-                contrasenia: contrasenia
+                contrasenia: contrasenia,
+                rol: rol
             }
         );
 
