@@ -3,19 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <title><%= titulo %></title>
-  <link rel="stylesheet" href="/estilos.css"> <!-- ejemplo de archivo estático -->
+  <!-- <link rel="stylesheet" href="/public/styles/styles.css"> ejemplo de archivo estático -->
 </head>
 <body>
     
     <h1>TIENDA DE DISCOS</h1>
 
     <ul>
-        <li><a href="/inicioSesion.ejs">Iniciar sesión</a></li>
-        <li><a href="/index.ejs">Index</a></li>
-        <li><a href="/panelControl.ejs">Panel de control</a></li>
+        <li><a href="/inicioSesion">Iniciar sesión</a></li>
+        <li><a href="/index">Index</a></li>
+        <li><a href="/panelControl">Panel de control</a></li>
     </ul>
 
     <h2>página: <%= titulo %></h2>
+
+    <p>Gracias por tu visita</p>
+    <button id="BtnLogout">Cerrar sesión</button>
     
 </body>
+
+<script>
+  document.getElementById("BtnLogout").addEventListener("click", async function () {
+    
+  try {
+    const respuesta = await fetch ("/api/usuarios/logout", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+
+    if (respuesta.ok) {
+      alert('Sesión cerrada correctamente');
+      window.location.href = '/index';
+    }
+  } catch (error) {
+    console.error('Error: ', error)
+  }
+  })
+</script>
 </html>

@@ -3,19 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <title><%= titulo %></title>
-  <link rel="stylesheet" href="/estilos.css"> <!-- ejemplo de archivo estático -->
+   <link rel="stylesheet" href="/styles/styles.css"> 
+  <!--<script type="module" src="/scripts/main.js" defer></script> -->
 </head>
 <body>
     
     <h1>TIENDA DE DISCOS</h1>
 
     <ul>
-        <li><a href="/index.ejs">Index</a></li>
-        <li><a href="/panelControl.ejs">Panel de control</a></li>
-        <li><a href="/cerrarSesion.ejs">Cerrar sesión</a></li>
+        <li><a href="/index">Index</a></li>
+        <li><a href="/panelControl">Panel de control</a></li>
+        <li><a href="/cerrarSesion">Cerrar sesión</a></li>
     </ul>
 
     <h2>página: <%= titulo %></h2>
+
+    <form id="login">
+        <input type="text" name="email" id="email" placeholder="E-mail" required>
+        <input type="text" name="contrasenia" id="contrasenia" placeholder="Contraseña" required>
+        <button type="submit">Iniciar sesión</button>
+        <button type="reset">Borrar campos</button>
+    </form>
+
+    <p id="mensaje" >Estado</p>
     
+    <script>
+      document.getElementById('login').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const contrasenia = document.getElementById('contrasenia').value;
+        const mensaje = document.getElementById('mensaje');
+
+        // console.log(email, contrasenia)
+
+        try {
+          const res = await fetch('/api/usuarios/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+              email,
+              contrasenia
+             })
+          });
+        
+          
+          if (res.ok) {
+            const data = await res.json();  
+            mensaje.innerText="Login exitoso! Redirigiendo a.....";
+            setTimeout(()=>{
+              window.location.href = '/panelControl'; // Redirige al panel
+            }, 1000)
+            //localStorage.setItem('token', data.token); // Guardar el JWT
+          } else {
+            alert('Error: ' + data.error);
+            mensaje.innerText="Login negado! Redirigiendo a.....";
+          }
+        } catch (error) {
+          console.error(error);
+          alert('Ocurrió un error en el inicio de sesión');
+        }
+       });
+      
+
+
+    </script>
 </body>
 </html>

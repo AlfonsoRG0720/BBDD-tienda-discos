@@ -1,17 +1,35 @@
 import express from "express";
+import  ProductoModel  from "../models/producto.model.js";
 
 const enrutadorPaginas = express.Router();
 
-enrutadorPaginas.get("/index", (req, res) => {
-    res.render('index.ejs', {
-        titulo: "Página de inicio",
-        nombre: "Ana",
-        rol: "administrador",
-        productos: [
-            { nombre: "Guitarra", precio: 120 },
-            { nombre: "Batería", precio: 300 }
-        ]
-    });
+enrutadorPaginas.get("/index", async (req, res) => {
+
+    try {
+        const resultado = await ProductoModel.find()
+        res.render('index.ejs', {
+            titulo: "Página de inicio",
+            nombre: "Prueba",
+            rol: "administrador",
+            productos: [
+                { nombre: "Guitarra", precio: 120 },
+                { nombre: "Batería", precio: 300 }
+            ],
+            productosBD:resultado
+        });
+        
+    } catch (error) {
+        res.render('index.ejs', {
+            titulo: "Página de inicio",
+            nombre: "Ana",
+            rol: "administrador",
+            productos: [
+                { nombre: "Guitarra", precio: 120 },
+                { nombre: "Batería", precio: 300 }
+            ],
+            productosBD:[]
+        });
+    }
 })
 
 enrutadorPaginas.get("/inicioSesion", (req, res) => {
@@ -26,10 +44,26 @@ enrutadorPaginas.get("/cerrarSesion", (req, res) => {
     });
 })
 
-enrutadorPaginas.get("/panelControl", (req, res) => {
-    res.render('panelControl.ejs', {
-        titulo: "Página de Dashboard"
+enrutadorPaginas.get("/panelControl", async (req, res) => {
+
+        try {
+        const resultado = await ProductoModel.find()
+        res.render('panelControl.ejs', {
+            titulo: "Página de Dashboard",
+            discosBBDD:resultado
+        });
+        console.log(resultado);
+        
+    } catch (error) {
+        res.render('panelControl.ejs', {
+            titulo: "ERROR Página de Dashboard",
+            discosBBDD:[]
+        });
+    }
+
+
+
     });
-})
+
 
 export default enrutadorPaginas

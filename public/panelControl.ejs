@@ -3,19 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <title><%= titulo %></title>
-  <link rel="stylesheet" href="/estilos.css"> <!-- ejemplo de archivo estático -->
+  <link rel="stylesheet" href="/styles/styles.css">
+  
 </head>
 <body>
     
     <h1>TIENDA DE DISCOS</h1>
 
     <ul>
-        <li><a href="/inicioSesion.ejs">Iniciar sesión</a></li>
-        <li><a href="/index.ejs">Index</a></li>
-        <li><a href="/cerrarSesion.ejs">Cerrar sesión</a></li>
+        <li><a href="/inicioSesion">Iniciar sesión</a></li>
+        <li><a href="/index">Index</a></li>
+        <li><a href="/cerrarSesion">Cerrar sesión</a></li>
     </ul>
 
     <h2>página: <%= titulo %></h2>
+
+    
+
+    <div id="ListaDiscos"> 
+
+        <% for (let i = 0; i < discosBBDD.length; i++) {%>
+            <div>
+                
+                <h3>Nombre: <%= discosBBDD[i].nombre %></h3>
+                <p>Año: <%= discosBBDD[i].anio %></p>
+                <p>Precio: <%= discosBBDD[i].precio %></p>
+                <p>Stock: <%= discosBBDD[i].stock %></p>
+                
+            </div>
+            
+        <% }%>
+            
+    </div>
+
+    <form id="crearDisco" method="post">
+        <input type="text" name="nombre" placeholder="Título del disco" required>
+        <input type="number" name="anio" placeholder="Año de lanzamiento" required>
+        <input type="number" name="precio" placeholder="Precio" required>
+        <input type="number" name="stock" placeholder="Stock actual" required>
+        <button type="submit">Crear nuevo</button>
+        <button type="reset">Borrar campos</button>
+    </form>
+    
     
 </body>
 </html>

@@ -1,0 +1,68 @@
+body {
+    background-color: rgb(224, 242, 247);
+}
+
+h1{
+    margin: auto;
+    padding: 2rem;
+    justify-self: center;
+    font-size: 3rem;
+}
+
+ul{
+    background-color: black;
+    padding-left: 2rem;
+    margin: auto;
+    width: 70%;
+    
+
+    li{
+        display: inline;
+        margin: auto;
+    }
+
+    a{
+        color: whitesmoke;
+        text-decoration: none;
+        font-size: 1.5rem;
+        display: inline;
+        padding: 2rem;
+        list-style: none;
+    }
+}
+
+#ListaDiscos{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3rem;
+    width: 60%;
+    margin: auto;
+    
+
+    div{
+        border: 1px solid black;
+        border-radius: 5px;
+        justify-items: center;
+    }
+}
+
+#crearDisco{
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    padding: 1rem;
+    background-color: rgb(154, 155, 155);
+    gap: 0.5rem;
+    border-radius: 5px;
+
+    input{
+        height: 1.5rem;
+    }
+
+    button{
+        width: 50%;
+        height: 1.5rem;
+        margin: auto;
+    }
+}

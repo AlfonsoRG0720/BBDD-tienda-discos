@@ -16,6 +16,10 @@ const usuarioSchema = new mongoose.Schema(
       lowercase: true,
       match: [/\S+@\S+\.\S+/, "Formato de email inválido"]
     },
+    contraseniaEncrip: {
+      type: String,
+      required: true
+    },
     contrasenia: {
       type: String,
       required: true,
