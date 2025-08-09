@@ -31,9 +31,12 @@ ul{
     }
 }
 
+.hidden{
+    display: none;
+}
+
 #ListaDiscos{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    
     gap: 3rem;
     width: 60%;
     margin: auto;

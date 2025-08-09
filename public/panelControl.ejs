@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title><%= titulo %></title>
   <link rel="stylesheet" href="/styles/styles.css">
-  
+  <!-- <script defer src="/public/scripts/scripsPanelControl.js"></script> -->
 </head>
 <body>
     
@@ -29,6 +29,25 @@
                 <p>Año: <%= discosBBDD[i].anio %></p>
                 <p>Precio: <%= discosBBDD[i].precio %></p>
                 <p>Stock: <%= discosBBDD[i].stock %></p>
+
+                <div id="btns-productos">
+                    <button data-id="<%= discosBBDD[i]._id %>" class="btn-editar" id="BTN-editar">Editar</button>
+                    <button data-id="<%= discosBBDD[i]._id %>" class="btn-eliminar">Eliminar</button>
+                </div>
+
+                <div id="form editar-<%= discosBBDD[i]._id %>" class="formulario-editar hidden">
+                    <h2>Nuevos datos:</h2>
+                    <form data-id="<%= discosBBDD[i]._id %>">
+                        <input type="text" id="nombre-<%= discosBBDD[i]._id %>" value="<%= discosBBDD[i].nombre %>" placeholder="Nombre Disco">
+                        <input type="number" id="anio-<%= discosBBDD[i]._id %>" value="<%= discosBBDD[i].anio %>" placeholder="Año lanzamiento del Disco">
+                        <input type="number" id="precio-<%= discosBBDD[i]._id %>" value="<%= discosBBDD[i].precio %>" placeholder="Precio del Disco">
+                        <input type="number" id="stock-<%= discosBBDD[i]._id %>" value="<%= discosBBDD[i].stock %>" placeholder="Stock actual del Disco">
+                        <br>
+                        <br>
+                        <button type="submit">Guardar cambios</button>
+                        <button type="button" data-id="<%= discosBBDD[i]._id %>">Cancelar</button>
+                    </form>
+                </div>
                 
             </div>
             
@@ -45,6 +64,68 @@
         <button type="reset">Borrar campos</button>
     </form>
     
+
+    <script>
+       
+        document.addEventListener("DOMContentLoaded", function () {
+            document.addEventListener("click", (event) => {
+                // Verifica si el clic fue en un botón con la clase 'btn-editar'
+                if (event.target.matches(".btn-editar")) {
+                const boton = event.target;
+                const idProducto = boton.dataset.id;
+                console.log("Editando disco:", idProducto);
+                const formEditar = document.getElementById(`form editar-${idProducto}`);
+                formEditar.classList.remove("hidden")
+
+                
+                }
+            });
+
+            document.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            if (event.target.hasAttribute('data-id')) {
+                const id = event.target.getAttribute('data-id');
+                const nombre = document.getElementById(`nombre-${id}`).value;
+                const anio = document.getElementById(`anio-${id}`).value;
+                const precio = document.getElementById(`precio-${id}`).value;
+                const stock = document.getElementById(`stock-${id}`).value;
+                
+                const formEditar = document.getElementById(`form editar-${id}`);
+                
+                try {
+                    const response = await fetch(`/api/productos/${id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            nombre: nombre,
+                            anio: anio,
+                            precio: parseFloat(precio),
+                            stock: parseInt(stock),
+                        })
+                    });
+                    formEditar.classList.add("hidden");
+                    location.reload();
+
+
+                    // if (response.ok) {
+                    //     alert('Producto actualizado exitosamente');
+                    //     location.reload(); // Recargar la página para mostrar los cambios
+                    // } else {
+                    //     const errorText = await response.text();
+                    //     alert('Error al actualizar producto: ' + errorText);
+                    // }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Error de conexión al actualizar producto');
+                }
+            }
+        });
+        });
+    </script>
     
 </body>
 </html>
