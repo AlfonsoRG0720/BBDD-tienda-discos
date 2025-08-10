@@ -52,6 +52,7 @@ enrutadorProductos.delete("/:identificador", async (req, res) => {
         console.log(req.params.identificador)
 
         const productoEncontrado = await ProductoModel.findById(req.params.identificador);
+        
 
         if (!productoEncontrado) {
             res.status(404).send("producto no encontrado")

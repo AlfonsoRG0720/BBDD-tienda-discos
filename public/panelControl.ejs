@@ -35,7 +35,7 @@
                     <button data-id="<%= discosBBDD[i]._id %>" class="btn-eliminar">Eliminar</button>
                 </div>
 
-                <div id="form editar-<%= discosBBDD[i]._id %>" class="formulario-editar hidden">
+                <div id="form-editar-<%= discosBBDD[i]._id %>" class="formulario-editar hidden">
                     <h2>Nuevos datos:</h2>
                     <form data-id="<%= discosBBDD[i]._id %>">
                         <input type="text" id="nombre-<%= discosBBDD[i]._id %>" value="<%= discosBBDD[i].nombre %>" placeholder="Nombre Disco">
@@ -45,7 +45,7 @@
                         <br>
                         <br>
                         <button type="submit">Guardar cambios</button>
-                        <button type="button" data-id="<%= discosBBDD[i]._id %>">Cancelar</button>
+                        <button type="button" data-id="<%= discosBBDD[i]._id %>" class="btn-cancelar">Cancelar</button>
                     </form>
                 </div>
                 
@@ -55,12 +55,12 @@
             
     </div>
 
-    <form id="crearDisco" method="post">
-        <input type="text" name="nombre" placeholder="Título del disco" required>
-        <input type="number" name="anio" placeholder="Año de lanzamiento" required>
-        <input type="number" name="precio" placeholder="Precio" required>
-        <input type="number" name="stock" placeholder="Stock actual" required>
-        <button type="submit">Crear nuevo</button>
+    <form id="form-crearDisco" method="post">
+        <input type="text" name="nombre" id="Nombre-Nuevo" placeholder="Título del disco" required>
+        <input type="number" name="anio" id="Anio-Nuevo" placeholder="Año de lanzamiento" required>
+        <input type="number" name="precio" id="Precio-Nuevo" placeholder="Precio" required>
+        <input type="number" name="stock" id="Stock-Nuevo" placeholder="Stock actual" required>
+        <button type="submit" id="btn-crear-disco" class="btn-crear-disco">Crear nuevo</button>
         <button type="reset">Borrar campos</button>
     </form>
     
@@ -69,20 +69,21 @@
        
         document.addEventListener("DOMContentLoaded", function () {
             document.addEventListener("click", (event) => {
-                // Verifica si el clic fue en un botón con la clase 'btn-editar'
                 if (event.target.matches(".btn-editar")) {
-                const boton = event.target;
-                const idProducto = boton.dataset.id;
-                console.log("Editando disco:", idProducto);
-                const formEditar = document.getElementById(`form editar-${idProducto}`);
-                formEditar.classList.remove("hidden")
-
-                
+                    const boton = event.target;
+                    const idProducto = boton.dataset.id;
+                    console.log("Editando disco:", idProducto);
+                    const formEditar = document.getElementById(`form-editar-${idProducto}`);
+                    formEditar.classList.remove("hidden")
+                    
+                    
                 }
             });
-
+            
             document.addEventListener('submit', async (event) => {
-            event.preventDefault();
+                event.preventDefault();
+                console.log("hola desde editar disco")
+                
 
             if (event.target.hasAttribute('data-id')) {
                 const id = event.target.getAttribute('data-id');
@@ -91,8 +92,7 @@
                 const precio = document.getElementById(`precio-${id}`).value;
                 const stock = document.getElementById(`stock-${id}`).value;
                 
-                const formEditar = document.getElementById(`form editar-${id}`);
-                
+                const formEditar = document.getElementById(`form-editar-${id}`);
                 try {
                     const response = await fetch(`/api/productos/${id}`, {
                         method: 'PUT',
@@ -110,20 +110,95 @@
                     formEditar.classList.add("hidden");
                     location.reload();
 
-
-                    // if (response.ok) {
-                    //     alert('Producto actualizado exitosamente');
-                    //     location.reload(); // Recargar la página para mostrar los cambios
-                    // } else {
-                    //     const errorText = await response.text();
-                    //     alert('Error al actualizar producto: ' + errorText);
-                    // }
                 } catch (error) {
                     console.error('Error:', error);
                     alert('Error de conexión al actualizar producto');
                 }
             }
         });
+
+            document.addEventListener('click', (event) => {
+
+            if (event.target.classList.contains('btn-cancelar')) {
+                const id = event.target.getAttribute('data-id');
+                const formulario = document.getElementById(`form-editar-${id}`);
+                formulario.classList.add("hidden");
+                
+            }
+        });
+
+            document.addEventListener('click', async (event) => {
+
+            if (event.target.classList.contains('btn-eliminar')) {
+                const id = event.target.getAttribute('data-id');
+
+                const confirmacion = confirm(`¿Estás seguro que quieres eliminar el disco?`);
+
+                if (!confirmacion) {
+                    return
+                } else {
+                    
+                    try {
+                        const response = await fetch(`/api/productos/${id}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json'
+                            }
+                        })
+                        
+                        alert ("Disco elimado de la Base de datos");
+                        location.reload();
+
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('Error de conexión al actualizar producto');
+                    }
+                    
+                }
+            }
+        });
+
+            document.addEventListener("submit", async (event) => {
+                console.log("hola desde agregar disco")
+                
+                const form = event.target;
+                
+                
+                if (form.matches('#form-crearDisco')){
+                    event.preventDefault();
+
+                    const nombre = document.getElementById(`Nombre-Nuevo`).value;
+                    const anio = document.getElementById(`Anio-Nuevo`).value;
+                    const precio = document.getElementById(`Precio-Nuevo`).value;
+                    const stock = document.getElementById(`Stock-Nuevo`).value;
+
+                    try {
+
+                    const response = await fetch(`/api/productos/`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            nombre: nombre,
+                            anio: anio,
+                            precio: parseFloat(precio),
+                            stock: parseInt(stock),
+                        })
+                    });
+                    alert ("Disco creado con éxito")
+                    location.reload();
+
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Error de conexión al actualizar producto');
+                }
+                 }
+
+            })
+
         });
     </script>
     

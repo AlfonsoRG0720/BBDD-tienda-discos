@@ -1,4 +1,3 @@
-import express from "express";
 import  UsuarioModel  from "../models/usuario.model.js";
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
