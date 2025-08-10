@@ -52,7 +52,7 @@
             const data = await res.json();  
             mensaje.innerText="Login exitoso! Redirigiendo a.....";
             setTimeout(()=>{
-              window.location.href = '/panelControl'; // Redirige al panel
+              window.location.href = '/index'; // Redirige al index
             }, 1000)
             //localStorage.setItem('token', data.token); // Guardar el JWT
           } else {
