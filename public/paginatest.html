@@ -13,6 +13,7 @@
 
     <script>
         const galeria = document.getElementById("GaleriaDiscos");
+        let listaDiscosRecuperada=[];
 
         // const ListaDiscos = fetch("http://localhost:4000/api/productos", {
         //     method: "GET",
@@ -36,24 +37,64 @@
                 return resp.json();
         })
             .then(discos => {
-            console.log(discos); // Array(5)
+            console.log(discos);
+            listaDiscosRecuperada=discos;
             for (let i = 0; i < discos.length; i++) {
                 
                 const div = document.createElement("div");
                 div.className = "disco";
                 div.innerHTML = `
                 <h3>${discos[i].nombre}</h3>
-                <p>Precio: ${discos[i].anio}</p>
+                <p>Año: ${discos[i].anio}</p>
                 <p>Precio: ${discos[i].precio}</p>
                 <p>Cantidad: ${discos[i].stock}</p>
-                <button data-id="btn-comprar-${discos[i]._id}" class="btn-comprar">Comprar</button>
+                <button data-id="${discos[i]._id}" class="btn-comprar">Comprar</button>
                 `;
                 
                 galeria.appendChild(div);
+
+                
             }
         })
             .catch(console.error);
 
+        document.addEventListener("click", (event) => {
+                if (event.target.matches(".btn-comprar")) {
+                    const boton = event.target;
+                    const idProducto = boton.dataset.id;
+                    const discoComprado = listaDiscosRecuperada.find(disco => disco._id === idProducto);
+                    const nombreDisco = discoComprado.nombre;
+                    const precioDisco = discoComprado.precio;
+                    const fecha = new Date();
+                    const horaCompra = `${fecha.getFullYear()}/${fecha.getMonth() + 1}/${fecha.getDate()}/${fecha.getHours()}/${fecha.getMinutes()}/${fecha.getSeconds()}`;
+
+                    console.log(nombreDisco);
+
+                     fetch('http://localhost:4000/api/compras', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            nombre: nombreDisco,
+                            total: precioDisco,
+                            fecha: horaCompra,
+                        })
+                    })
+                        .then(resp => {
+                            if (!resp.ok) return resp.text().then(t => { throw new Error(`HTTP ${resp.status}: ${t}`); });
+                            return resp.json();
+                    })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                        alert(`Haz comprado el disco ${nombreDisco}!, el total de la compra es ${precioDisco}€, gracias por tu compra`)                    
+                }
+
+                    
+                }
+            );
 
     </script>
 </body>

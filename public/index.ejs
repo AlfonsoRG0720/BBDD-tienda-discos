@@ -16,20 +16,9 @@
     </ul>
     <h2>Bienvenido, <%= nombre %>!</h2>
 
-    <p>Este es un ejemplo de una página usando <strong>EJS</strong>.</p>
+    <a href="http://127.0.0.1:5500/public/paginatest.html" target="_blank" >Ir a la tienda</a>
 
-    <%= productosBD[1].nombre  %>
-
-    <% if (rol === "administrador") { %>
-        <p>Acceso total al sistema.</p>
-    <% } else { %>
-        <p>Acceso limitado.</p>
-    <% } %>
-
-  <ul>
-    <% productos.forEach(producto => { %>
-      <li><%= producto.nombre %> - $<%= producto.precio %></li>
-    <% }) %>
+    
   </ul>
 </body>
 </html>

@@ -33,9 +33,6 @@ const corsOptions = {
 };
 
 
-
-
-
 // Importa rutas
 import indexRouter from "./routes/index.routes.js";
 
@@ -60,7 +57,7 @@ app.use((req, _res, next) => {
 
 
 
-// Aplica CORS antes que tus rutas
+// Aplica CORS
 app.use(cors(corsOptions));
 
 

@@ -2,28 +2,21 @@ import mongoose from "mongoose";
 
 const compraSchema = new mongoose.Schema(
   {
-    nombre: {
+    nombreDisco: {
       type: String,
       required: true,
     },
-    anio: {
+    totalCompra: {
       type: Number,
       required: true,
-      min: 1900,
     },
-    precio: {
-      type: Number,
+    fechaCompra: {
+      type: String,
       required: true,
-      min: 1,
-    },
-    stock: {
-      type: Number,
-      required: true,
-      min: 0
-    },
+    }
   },
 );
 
-const ProductoModel = mongoose.model("Producto", productoSchema);
+const CompraModel = mongoose.model("Compra", compraSchema);
 
-export default ProductoModel;
+export default CompraModel;
