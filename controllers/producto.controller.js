@@ -2,9 +2,11 @@ import express from "express";
 import ProductoModel from "../models/producto.model.js";
 
 
-const enrutadorProductos = express.Router();
 
-enrutadorProductos.get("/", async (req, res) => {
+
+
+    
+async function recuperarProductos (req, res) {
     try {
         const resultado = await ProductoModel.find()
 
@@ -12,9 +14,11 @@ enrutadorProductos.get("/", async (req, res) => {
     } catch (error) {
         res.status(500).send("error")
     }
-})
+}
 
-enrutadorProductos.get("/:identificacion", async (req, res) => {
+
+    
+async function RecuperarProductoID (req, res) {
     try {
         console.log(req.params.identificacion)
         const resultado = await ProductoModel.findById(req.params.identificacion)
@@ -23,9 +27,11 @@ enrutadorProductos.get("/:identificacion", async (req, res) => {
     } catch (error) {
         res.status(500).send("error")
     }
-})
+}
 
-enrutadorProductos.post("/", async (req, res) => {
+
+    
+async function crearProducto (req, res) {
     try {
         const { nombre, anio, precio, stock } = req.body;
 
@@ -45,9 +51,11 @@ enrutadorProductos.post("/", async (req, res) => {
             error: error.message,
         });
     }
-})
+}
 
-enrutadorProductos.delete("/:identificador", async (req, res) => {
+
+    
+async function borrarProductoID (req, res) {
     try {
         console.log(req.params.identificador)
 
@@ -66,10 +74,12 @@ enrutadorProductos.delete("/:identificador", async (req, res) => {
     } catch (error) {
         res.status(500).send("error")
     }
-})
+}
 
 
-enrutadorProductos.put("/:identificador", async (req, res) => {
+
+    
+async function editarproducto (req, res) {
     try {
         console.log(req.params.identificador)
 
@@ -95,6 +105,12 @@ enrutadorProductos.put("/:identificador", async (req, res) => {
     } catch (error) {
         res.status(500).send("error")
     }
-})
+}
 
-export default enrutadorProductos
+export {
+    recuperarProductos,
+    RecuperarProductoID,
+    crearProducto,
+    borrarProductoID,
+    editarproducto
+}
