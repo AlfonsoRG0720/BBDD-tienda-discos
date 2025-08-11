@@ -6,6 +6,55 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <h1>Tienda de discos</h1>
+    <div id="GaleriaDiscos">
+
+    </div>
+
+    <script>
+        const galeria = document.getElementById("GaleriaDiscos");
+
+        // const ListaDiscos = fetch("http://localhost:4000/api/productos", {
+        //     method: "GET",
+        //     credentials: 'include',
+        //     headers: { 'Accept': 'application/json' }
+        // }).then((resp) => {
+        //     return resp.json();
+        // })
+
+        // console.log(ListaDiscos);
+        // const arrayDiscos = ListaDiscos.value;
+        // console.log(arrayDiscos);
+
+
+        fetch('http://localhost:4000/api/productos', {
+            credentials: 'include',
+            headers: { Accept: 'application/json' },
+        })
+            .then(resp => {
+                if (!resp.ok) return resp.text().then(t => { throw new Error(`HTTP ${resp.status}: ${t}`); });
+                return resp.json();
+        })
+            .then(discos => {
+            console.log(discos); // Array(5)
+            for (let i = 0; i < discos.length; i++) {
+                
+                const div = document.createElement("div");
+                div.className = "disco";
+                div.innerHTML = `
+                <h3>${discos[i].nombre}</h3>
+                <p>Precio: ${discos[i].anio}</p>
+                <p>Precio: ${discos[i].precio}</p>
+                <p>Cantidad: ${discos[i].stock}</p>
+                <button data-id="btn-comprar-${discos[i]._id}" class="btn-comprar">Comprar</button>
+                `;
+                
+                galeria.appendChild(div);
+            }
+        })
+            .catch(console.error);
+
+
+    </script>
 </body>
 </html>

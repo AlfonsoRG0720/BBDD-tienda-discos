@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title><%= titulo %></title>
    <link rel="stylesheet" href="/styles/styles.css"> 
-  <!--<script type="module" src="/scripts/main.js" defer></script> -->
 </head>
 <body>
     
@@ -35,8 +34,6 @@
         const contrasenia = document.getElementById('contrasenia').value;
         const mensaje = document.getElementById('mensaje');
 
-        // console.log(email, contrasenia)
-
         try {
           const res = await fetch('/api/usuarios/login', {
             method: 'POST',
@@ -46,7 +43,6 @@
               contrasenia
              })
           });
-        
           
           if (res.ok) {
             const data = await res.json();  
@@ -54,10 +50,9 @@
             setTimeout(()=>{
               window.location.href = '/index'; // Redirige al index
             }, 1000)
-            //localStorage.setItem('token', data.token); // Guardar el JWT
           } else {
             alert('Error: ' + data.error);
-            mensaje.innerText="Login negado! Redirigiendo a.....";
+            mensaje.innerText="Login negado! Reintenta nuevamente";
           }
         } catch (error) {
           console.error(error);
@@ -65,8 +60,6 @@
         }
        });
       
-
-
     </script>
 </body>
 </html>

@@ -125,6 +125,8 @@ async function login (req, res) {
 
         res.cookie('tokenJWT', token, {
             httpOnly: true,
+            secure: false,
+            sameSite: "lax",
             maxAge: 10*60*1000
         });
 
