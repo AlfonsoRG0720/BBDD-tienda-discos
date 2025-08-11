@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
-import  UsuarioModel  from "../models/usuario.model.js";
+import UsuarioModel  from "../models/usuario.model.js";
+
 
 function revisarCookieJWT(req, res, next) {
     try {
@@ -80,6 +81,9 @@ async function revisarCookieJWTAdmin(req, res, next) {
         return res.status(403).render('paginaError.ejs', { mensaje: 'Token inválido o expirado' });
     }
 }
+
+
+
 
 export {
     revisarCookieJWT,

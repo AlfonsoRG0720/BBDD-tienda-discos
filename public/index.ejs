@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title><%= titulo %></title>
+  <link rel="stylesheet" href="/styles/styles.css">
   <!-- <link rel="stylesheet" href="/styles/styles.css"> ejemplo de archivo estático -->
 </head>
 <body>
@@ -10,11 +11,18 @@
     <h1>TIENDA DE DISCOS</h1>
 
     <ul>
+        <li><a href="/index">Index</a></li>
         <li><a href="/inicioSesion">Iniciar sesión</a></li>
         <li><a href="/panelControl">Panel de control</a></li>
         <li><a href="/cerrarSesion">Cerrar sesión</a></li>
+        <li><a href="/sesiones">Revisión sesiones</a></li>
     </ul>
-    <h2>Bienvenido, <%= nombre %>!</h2>
+
+    <h2><%= titulo %></h2>
+
+    <h2>Bienvenido,</h2>
+
+    
 
     <a href="http://127.0.0.1:5500/public/paginatest.html" target="_blank" >Ir a la tienda</a>
 

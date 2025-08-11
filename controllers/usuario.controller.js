@@ -1,6 +1,7 @@
-import  UsuarioModel  from "../models/usuario.model.js";
+import UsuarioModel  from "../models/usuario.model.js";
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import registrarSesion from "../middlewares/RegistroSesiones.js";
 
 
     
@@ -129,6 +130,8 @@ async function login (req, res) {
             sameSite: "lax",
             maxAge: 10*60*1000
         });
+
+        registrarSesion(email);
 
         res.json({ mensaje: "Sesión iniciada con JWT"})
 

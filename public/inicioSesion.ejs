@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title><%= titulo %></title>
-   <link rel="stylesheet" href="/styles/styles.css"> 
+   <link rel="stylesheet" href="/styles/styles.css">
 </head>
 <body>
     
@@ -11,11 +11,13 @@
 
     <ul>
         <li><a href="/index">Index</a></li>
+        <li><a href="/inicioSesion">Iniciar sesión</a></li>
         <li><a href="/panelControl">Panel de control</a></li>
         <li><a href="/cerrarSesion">Cerrar sesión</a></li>
+        <li><a href="/sesiones">Revisión sesiones</a></li>
     </ul>
 
-    <h2>página: <%= titulo %></h2>
+    <h2><%= titulo %></h2>
 
     <form id="login">
         <input type="text" name="email" id="email" placeholder="E-mail" required>
@@ -27,6 +29,7 @@
     <p id="mensaje" >Estado</p>
     
     <script>
+
       document.getElementById('login').addEventListener('submit', async function (e) {
         e.preventDefault();
 

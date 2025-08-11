@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./styles/styles.css">
 </head>
 <body>
-    <h1>Tienda de discos</h1>
+    <h1>TIENDA DE DISCOS</h1>
+
     <div id="GaleriaDiscos">
 
     </div>
@@ -45,10 +47,10 @@
                 div.className = "disco";
                 div.innerHTML = `
                 <h3>${discos[i].nombre}</h3>
-                <p>Año: ${discos[i].anio}</p>
-                <p>Precio: ${discos[i].precio}</p>
-                <p>Cantidad: ${discos[i].stock}</p>
-                <button data-id="${discos[i]._id}" class="btn-comprar">Comprar</button>
+                <p>Año de lanzamiento: ${discos[i].anio}</p>
+                <p>Precio: ${discos[i].precio}€</p>
+                <p>Stock: ${discos[i].stock}</p>
+                <button data-id="${discos[i]._id}" class="btn-comprar">Comprar🛒</button>
                 `;
                 
                 galeria.appendChild(div);

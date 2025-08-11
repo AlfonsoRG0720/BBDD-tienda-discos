@@ -1,30 +1,23 @@
 import ProductoModel from "../models/producto.model.js"
+import SesionesModel from "../models/sesiones.model.js";
 
 async function paginaIndex(req, res) {
 
     try {
         const resultado = await ProductoModel.find()
         res.render('index.ejs', {
-            titulo: "Página de inicio",
-            nombre: "Prueba",
-            rol: "administrador",
-            productos: [
-                { nombre: "Guitarra", precio: 120 },
-                { nombre: "Batería", precio: 300 }
-            ],
-            productosBD:resultado
+            titulo: "Página de index",
+            // nombre: "Prueba",
+            // rol: "administrador",
+            // productosBD:resultado
         });
         
     } catch (error) {
         res.render('index.ejs', {
             titulo: "Página de inicio",
-            nombre: "Ana",
-            rol: "administrador",
-            productos: [
-                { nombre: "Guitarra", precio: 120 },
-                { nombre: "Batería", precio: 300 }
-            ],
-            productosBD:[]
+            // nombre: "Ana",
+            // rol: "administrador",
+            // productosBD:[]
         });
     }
 }
@@ -59,10 +52,29 @@ async function paginaDashboard (req, res) {
     }
 }
 
+async function paginaSesiones (req, res) {
+
+        try {
+        const resultado = await SesionesModel.find()
+        res.render('sesiones.ejs', {
+            titulo: "Página de sesiones de usuarios",
+            listaSesiones:resultado
+        });
+        console.log(resultado);
+        
+    } catch (error) {
+        res.render('sesiones.ejs', {
+            titulo: "Página de sesiones de usuarios",
+            listaSesiones:[]
+        });
+    }
+}
+
 
 export {
     paginaIndex,
     paginaLogin,
     paginaLogout,
-    paginaDashboard
+    paginaDashboard,
+    paginaSesiones
 }

@@ -11,12 +11,14 @@
     <h1>TIENDA DE DISCOS</h1>
 
     <ul>
-        <li><a href="/inicioSesion">Iniciar sesión</a></li>
         <li><a href="/index">Index</a></li>
+        <li><a href="/inicioSesion">Iniciar sesión</a></li>
+        <li><a href="/panelControl">Panel de control</a></li>
         <li><a href="/cerrarSesion">Cerrar sesión</a></li>
+        <li><a href="/sesiones">Revisión sesiones</a></li>
     </ul>
 
-    <h2>página: <%= titulo %></h2>
+    <h2><%= titulo %></h2>
 
     
 
@@ -30,7 +32,7 @@
                 <p>Precio: <%= discosBBDD[i].precio %></p>
                 <p>Stock: <%= discosBBDD[i].stock %></p>
 
-                <div id="btns-productos">
+                <div id="btns-productos" class="botones-panel-control">
                     <button data-id="<%= discosBBDD[i]._id %>" class="btn-editar" id="BTN-editar">Editar</button>
                     <button data-id="<%= discosBBDD[i]._id %>" class="btn-eliminar">Eliminar</button>
                 </div>

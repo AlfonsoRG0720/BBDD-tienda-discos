@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Sesiones</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+<body>
+    <h1>TIENDA DE DISCOS</h1>
+
+    <ul>
+        <li><a href="/index">Index</a></li>
+        <li><a href="/inicioSesion">Iniciar sesión</a></li>
+        <li><a href="/panelControl">Panel de control</a></li>
+        <li><a href="/cerrarSesion">Cerrar sesión</a></li>
+        <li><a href="/sesiones">Revisión sesiones</a></li>
+    </ul>
+
+    <h2><%= titulo %></h2>
+
+
+    <table border="1" cellspacing="0" cellpadding="8" style="margin: auto;">
+      <thead>
+        <tr>
+          <th>nombre</th>
+          <th>email</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (let i = 0; i < listaSesiones.length; i++) { %>
+            
+        <tr>
+            <td><%= listaSesiones[i].nombreUsuario %></td>
+            <td><%= listaSesiones[i].email %></td>
+            <td><%= listaSesiones[i].fechaIngreso %></td>
+        </tr>
+        <% }; %>
+      </tbody>
+    </table>
+
+</body>
+</html>
